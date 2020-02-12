@@ -15,7 +15,10 @@ export class User{
     
     @Column({ name: 'password'})
     private _password: string;
-
+    
+    /**
+     * @param plainText set the password not encrypted.
+     */
     set password(plainText: string) {
         this._password = bcrypt.hashSync(plainText, bcrypt.genSaltSync());
     }
