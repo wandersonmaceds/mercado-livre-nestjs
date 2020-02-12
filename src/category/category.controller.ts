@@ -17,21 +17,7 @@ export class CategoryController {
     async create(@Body() categoryDTO: CreateCategoryDTO) {
         const category = new Category();
         category.name = categoryDTO.name;
-        
-        if(categoryDTO.parentId){
-            try {
-                category.parent = (await this.categoryRepository.findOneOrFail(categoryDTO.parentId)).id;
-            } catch (error) {
-                throw new BadRequestException(error.message);
-            }
-        }
-        
-        try {
-            await this.categoryRepository.insert(category);
-        } catch (error) {
-            throw new BadRequestException(error.detail)
-        }
-        
+    
         this.categoryRepository.insert(category);
     }
 }
