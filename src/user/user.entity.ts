@@ -29,7 +29,7 @@ export class User{
     /**
      * @param plainText set the password not encrypted.
      */
-    set password(plainText: string) {
+    private set password(plainText: string) {
         this._password = bcrypt.hashSync(plainText, bcrypt.genSaltSync());
     }
 }
