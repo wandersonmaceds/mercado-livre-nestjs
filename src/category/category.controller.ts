@@ -15,9 +15,7 @@ export class CategoryController {
     @Post()
     @HttpCode(HttpStatus.OK)
     async create(@Body() categoryDTO: CreateCategoryDTO) {
-        const category = new Category();
-        category.name = categoryDTO.name;
-    
+        const category = new Category(categoryDTO.name, categoryDTO.parentId);
         this.categoryRepository.insert(category);
     }
 }

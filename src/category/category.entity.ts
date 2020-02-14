@@ -4,13 +4,24 @@ import { IsNotEmpty } from "class-validator";
 @Entity()
 @Unique(["name"])
 export class Category {
+
+    /**
+     * 
+     * @param name Category name as string
+     * @param parent Optional Parent Category ID
+     */
+    constructor(name: string, parent?: number) {
+        this.name = name;
+        this.parent = parent ?? null;
+    }
+
     @PrimaryGeneratedColumn()
     id: number;
 
     @Column()
-    name: string;
+    readonly name: string;
 
     @OneToOne(type => Category, parent => parent.id)
     @Column({ nullable: true })
-    parent: number;
+    readonly parent: number;
 }
