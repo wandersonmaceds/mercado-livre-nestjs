@@ -15,9 +15,7 @@ export class UserController {
     @Post()
     @HttpCode(HttpStatus.OK)
     async create(@Body() userDTO: CreateUserDTO) {
-        const user = new User();
-        user.login = userDTO.login;
-        user.password = userDTO.password;
+        const user = new User(userDTO.login, userDTO.password);
         await this.userRepository.insert(user);
     }
 }

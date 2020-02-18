@@ -4,6 +4,16 @@ import  * as bcrypt from "bcrypt";
 @Entity()
 export class User{
 
+    /**
+     * 
+     * @param login a valid email must be passed
+     * @param password a plain text (not encrypted)
+     */
+    constructor(login: string, password: string) {
+        this.login = login;
+        this.password = password ?? '';
+    }
+
     @PrimaryGeneratedColumn()
     private id: number;
 
@@ -19,7 +29,7 @@ export class User{
     /**
      * @param plainText set the password not encrypted.
      */
-    set password(plainText: string) {
+    private set password(plainText: string) {
         this._password = bcrypt.hashSync(plainText, bcrypt.genSaltSync());
     }
 }
