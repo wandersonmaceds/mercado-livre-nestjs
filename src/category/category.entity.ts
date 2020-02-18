@@ -1,27 +1,37 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToOne, Unique } from "typeorm";
-import { IsNotEmpty } from "class-validator";
+import {
+  Column,
+  Entity,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+  Unique,
+} from 'typeorm';
+import { Optional } from '@nestjs/common';
+import { IsNotEmpty } from 'class-validator';
 
 @Entity()
-@Unique(["name"])
+@Unique(['name'])
 export class Category {
+  /**
+   *
+   * @param name Category name as string
+   * @param parent Optional Parent Category ID
+   */
+  constructor(name: string, category?: Category) {
+    this.name = name;
+    this.parent = category ?? null;
+  }
 
-    /**
-     * 
-     * @param name Category name as string
-     * @param parent Optional Parent Category ID
-     */
-    constructor(name: string, parent?: number) {
-        this.name = name;
-        this.parent = parent ?? null;
-    }
+  @PrimaryGeneratedColumn()
+  id: number;
 
-    @PrimaryGeneratedColumn()
-    id: number;
+  @Column()
+  @IsNotEmpty()
+  readonly name: string;
 
-    @Column()
-    readonly name: string;
-
-    @OneToOne(type => Category, parent => parent.id)
-    @Column({ nullable: true })
-    readonly parent: number;
+  @ManyToOne(
+    type => Category,
+    category => category.id,
+  )
+  @Optional()
+  readonly parent: Category;
 }

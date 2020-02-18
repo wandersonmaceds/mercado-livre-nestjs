@@ -1,16 +1,19 @@
-import { IsNotEmpty, IsNumber, IsOptional, Validate } from "class-validator";
-import { UniqueCategoryNameConstraint } from "../validator/unique-category-name.constraint";
-import { ParentCategoryExistsConstraint } from "../validator/parent-category-exists.constraint";
-
+import { IsNotEmpty, IsNumber, IsOptional, Validate } from 'class-validator';
+import { UniqueCategoryNameConstraint } from '../validator/unique-category-name.constraint';
+import { ParentCategoryExistsConstraint } from '../validator/parent-category-exists.constraint';
+import { Category } from '../category.entity';
 
 export class CreateCategoryDTO {
+  @IsNotEmpty()
+  @Validate(UniqueCategoryNameConstraint, {
+    message: 'Category name already exists',
+  })
+  name: string;
 
-    @IsNotEmpty()
-    @Validate(UniqueCategoryNameConstraint, { message: 'Category name already exists'})
-    name: string;
-
-    @IsOptional()
-    @IsNumber()
-    @Validate(ParentCategoryExistsConstraint, { message: `Parent category doesn't exists` })
-    parentId: number;
+  @IsOptional()
+  @IsNumber()
+  @Validate(ParentCategoryExistsConstraint, {
+    message: `Parent category doesn't exists`,
+  })
+  parent: Category;
 }
