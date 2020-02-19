@@ -23,7 +23,7 @@ export class Category {
   }
 
   @PrimaryGeneratedColumn()
-  id: number;
+  readonly id: number;
 
   @Column()
   @IsNotEmpty()
