@@ -6,7 +6,8 @@ import {
   Unique,
 } from 'typeorm';
 import { Optional } from '@nestjs/common';
-import { IsNotEmpty } from 'class-validator';
+import { IsNotEmpty, Validate } from 'class-validator';
+import { ParentCategoryExistsConstraint } from './validator/parent-category-exists.constraint';
 
 @Entity()
 @Unique(['name'])
@@ -33,5 +34,6 @@ export class Category {
     category => category.id,
   )
   @Optional()
+  @Validate(ParentCategoryExistsConstraint)
   readonly parent: Category;
 }

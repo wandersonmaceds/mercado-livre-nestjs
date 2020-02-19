@@ -11,7 +11,6 @@ export class CreateCategoryDTO {
   name: string;
 
   @IsOptional()
-  @IsNumber()
   @Validate(ParentCategoryExistsConstraint, {
     message: `Parent category doesn't exists`,
   })
