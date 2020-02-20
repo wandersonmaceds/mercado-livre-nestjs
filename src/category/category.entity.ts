@@ -34,6 +34,5 @@ export class Category {
     category => category.id,
   )
   @Optional()
-  @Validate(ParentCategoryExistsConstraint)
   readonly parent: Category;
 }

@@ -13,6 +13,10 @@ export class ParentCategoryExistsConstraint
     value: any,
     validationArguments?: ValidationArguments,
   ): Promise<boolean> {
+    if (!value) {
+      return false;
+    }
+
     const repository = getRepository(Category);
     const category = await repository.findOne({ id: value });
     return category !== undefined;
