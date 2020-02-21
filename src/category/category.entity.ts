@@ -1,3 +1,5 @@
+import { Optional } from '@nestjs/common';
+import { IsNotEmpty } from 'class-validator';
 import {
   Column,
   Entity,
@@ -5,9 +7,6 @@ import {
   PrimaryGeneratedColumn,
   Unique,
 } from 'typeorm';
-import { Optional } from '@nestjs/common';
-import { IsNotEmpty, Validate } from 'class-validator';
-import { ParentCategoryExistsConstraint } from './validator/parent-category-exists.constraint';
 
 @Entity()
 @Unique(['name'])
@@ -29,10 +28,7 @@ export class Category {
   @IsNotEmpty()
   readonly name: string;
 
-  @ManyToOne(
-    type => Category,
-    category => category.id,
-  )
+  @ManyToOne(type => Category)
   @Optional()
   readonly parent: Category;
 }

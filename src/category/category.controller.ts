@@ -14,7 +14,17 @@ export class CategoryController {
   @Post()
   @HttpCode(HttpStatus.OK)
   async create(@Body() categoryDTO: CreateCategoryDTO) {
-    const category = new Category(categoryDTO.name, categoryDTO.parent);
+    let category: Category;
+
+    if (categoryDTO.parent_id) {
+      const parentCategory = await this.categoryRepository.findOne({
+        id: categoryDTO.parent_id,
+      });
+      category = new Category(categoryDTO.name, parentCategory);
+    } else {
+      category = new Category(categoryDTO.name);
+    }
+
     this.categoryRepository.insert(category);
   }
 }
