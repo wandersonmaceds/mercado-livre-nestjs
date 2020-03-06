@@ -1,10 +1,11 @@
 import { Module } from '@nestjs/common';
+import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { ConfigModule } from "@nestjs/config";
-import { User } from './user/user.entity';
-import { UserModule } from './user/user.module';
+import { AuthModule } from './auth/auth.module';
 import { Category } from './category/category.entity';
 import { CategoryModule } from './category/category.module';
+import { User } from './user/user.entity';
+import { UserModule } from './user/user.module';
 
 @Module({
   imports: [
@@ -13,10 +14,11 @@ import { CategoryModule } from './category/category.module';
       type: 'postgres',
       url: process.env.DATABASE_URL,
       entities: [User, Category],
-      synchronize: true
+      synchronize: true,
     }),
     UserModule,
-    CategoryModule
+    CategoryModule,
+    AuthModule,
   ],
 })
 export class AppModule {}
