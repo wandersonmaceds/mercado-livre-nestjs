@@ -5,7 +5,9 @@ import {
   IsNumber,
   MaxLength,
   Min,
+  Validate,
 } from 'class-validator';
+import { IsArrayInstancesOf } from '../validators/is-array-instances-of.constraint';
 import { CreateProductFeatureDTO } from './create-product-feature.dto';
 import { CreateProductImageDTO } from './create-product-image.dto';
 
@@ -19,14 +21,16 @@ export class CreateProductDTO {
 
   @IsInt()
   @Min(0)
-  readonly quantity: number;
+  readonly quantity: number = 0;
 
   @MaxLength(1000)
   readonly description: string;
 
   @ArrayMinSize(3)
+  @Validate(IsArrayInstancesOf, [CreateProductFeatureDTO])
   readonly features: CreateProductFeatureDTO[];
 
   @ArrayMinSize(1)
+  @Validate(IsArrayInstancesOf, [CreateProductImageDTO])
   readonly images: CreateProductImageDTO[];
 }

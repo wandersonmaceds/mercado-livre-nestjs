@@ -1,9 +1,8 @@
-import { Body, Controller, Post, HttpStatus, HttpCode } from '@nestjs/common';
+import { Body, Controller, HttpCode, HttpStatus, Post } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CreateProductDTO } from './dto/create-product.dto';
 import { Product } from './product.entity';
-import { STATUS_CODES } from 'http';
 
 @Controller('product')
 export class ProductController {
