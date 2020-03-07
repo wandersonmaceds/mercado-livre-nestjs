@@ -12,9 +12,12 @@ import {
   Entity,
   OneToMany,
   PrimaryGeneratedColumn,
+  ManyToOne,
+  JoinColumn,
 } from 'typeorm';
 import { ProductFeature } from './product-feature.entity';
 import { ProductImage } from './product-image.entity';
+import { User } from 'src/user/user.entity';
 
 @Entity()
 export class Product {
@@ -75,4 +78,11 @@ export class Product {
   )
   @ArrayMinSize(1)
   images: ProductImage[];
+
+  @ManyToOne(
+    type => User,
+    u => u.products,
+  )
+  @JoinColumn({ name: 'user_id' })
+  user: User;
 }

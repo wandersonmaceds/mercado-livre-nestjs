@@ -3,8 +3,10 @@ import {
   CreateDateColumn,
   Column,
   PrimaryGeneratedColumn,
+  OneToMany,
 } from 'typeorm';
 import * as bcrypt from 'bcrypt';
+import { Product } from 'src/product/product.entity';
 
 @Entity()
 export class User {
@@ -44,4 +46,10 @@ export class User {
   isPasswordValid(password: string) {
     return bcrypt.compareSync(password, this._password);
   }
+
+  @OneToMany(
+    type => Product,
+    p => p.user,
+  )
+  products: Product[];
 }
