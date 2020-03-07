@@ -19,6 +19,7 @@ import { ProductModule } from './product/product.module';
       url: process.env.DATABASE_URL,
       entities: [User, Category, Product, ProductFeature, ProductImage],
       synchronize: true,
+      logging: true,
     }),
     UserModule,
     CategoryModule,
