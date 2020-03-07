@@ -1,3 +1,4 @@
+import { Type } from 'class-transformer';
 import {
   ArrayMinSize,
   IsInt,
@@ -7,6 +8,7 @@ import {
   Min,
   Validate,
 } from 'class-validator';
+import { Product } from '../product.entity';
 import { IsArrayInstancesOf } from '../validators/is-array-instances-of.constraint';
 import { CreateProductFeatureDTO } from './create-product-feature.dto';
 import { CreateProductImageDTO } from './create-product-image.dto';
@@ -28,9 +30,25 @@ export class CreateProductDTO {
 
   @ArrayMinSize(3)
   @Validate(IsArrayInstancesOf, [CreateProductFeatureDTO])
+  @Type(() => CreateProductFeatureDTO)
   readonly features: CreateProductFeatureDTO[];
 
   @ArrayMinSize(1)
   @Validate(IsArrayInstancesOf, [CreateProductImageDTO])
+  @Type(() => CreateProductImageDTO)
   readonly images: CreateProductImageDTO[];
+
+  toModel() {
+    const model = new Product(
+      this.name,
+      this.price,
+      this.quantity,
+      this.description,
+    );
+
+    model.addFeatures(this.features.map(feat => feat.toModel()));
+    model.addImages(this.images.map(img => img.toModel()));
+
+    return model;
+  }
 }
