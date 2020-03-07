@@ -10,6 +10,10 @@ import { Product } from './product.entity';
 
 @Entity({ name: 'product_feature' })
 export class ProductFeature {
+  constructor(name: string, description: string) {
+    this.name = name;
+    this.description = description;
+  }
   @PrimaryGeneratedColumn()
   readonly id: number;
 

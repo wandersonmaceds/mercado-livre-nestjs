@@ -18,6 +18,24 @@ import { ProductImage } from './product-image.entity';
 
 @Entity()
 export class Product {
+  constructor(name, price, quantity, description) {
+    this.name = name;
+    this.price = price;
+    this.quantity = quantity;
+    this.description = description;
+  }
+
+  addFeatures(feature: ProductFeature | ProductFeature[]) {
+    if (!this.features) this.features = [];
+
+    this.features.push(...this.features.concat(feature));
+  }
+
+  addImages(image: ProductImage | ProductImage[]) {
+    if (!this.images) this.images = [];
+    this.images.push(...this.images.concat(image));
+  }
+
   @PrimaryGeneratedColumn()
   readonly id: number;
 
@@ -28,7 +46,7 @@ export class Product {
   @Column()
   readonly name: string;
 
-  @Column()
+  @Column({ type: 'decimal' })
   @IsNumber({ maxDecimalPlaces: 2 })
   @Min(0.01)
   readonly price: number;
@@ -45,14 +63,16 @@ export class Product {
   @OneToMany(
     type => ProductFeature,
     p => p.product,
+    { cascade: true, eager: true },
   )
   @ArrayMinSize(3)
-  readonly features: ProductFeature[];
+  features: ProductFeature[];
 
   @OneToMany(
     type => ProductImage,
     p => p.product,
+    { cascade: true, eager: true },
   )
   @ArrayMinSize(1)
-  readonly images: ProductImage[];
+  images: ProductImage[];
 }

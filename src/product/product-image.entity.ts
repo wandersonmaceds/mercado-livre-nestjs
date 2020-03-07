@@ -10,6 +10,10 @@ import { Product } from './product.entity';
 
 @Entity()
 export class ProductImage {
+  constructor(path: string) {
+    this.path = path;
+  }
+
   @PrimaryGeneratedColumn()
   readonly id: number;
 
