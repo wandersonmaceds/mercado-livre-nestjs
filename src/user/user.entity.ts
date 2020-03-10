@@ -46,10 +46,4 @@ export class User {
   isPasswordValid(password: string) {
     return bcrypt.compareSync(password, this._password);
   }
-
-  @OneToMany(
-    type => Product,
-    p => p.user,
-  )
-  products: Product[];
 }
