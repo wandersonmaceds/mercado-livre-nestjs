@@ -20,9 +20,9 @@ export class IsArrayInstancesOf implements ValidatorConstraintInterface {
     });
     const validations = transforms.map(item => validate(item));
     const validationsResults = await Promise.all(validations);
-    const results = validationsResults.map(vr => vr.length > 0);
+    const errorsArray = validationsResults.filter(vr => vr.length > 0);
 
-    return !results.includes(true);
+    return errorsArray.length === 0;
   }
   defaultMessage(validationArguments?: ValidationArguments): string {
     return `The ${validationArguments.property} must be an instance of ${validationArguments.constraints[0]}`;
