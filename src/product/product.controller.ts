@@ -24,8 +24,7 @@ export class ProductController {
   @Post()
   @HttpCode(HttpStatus.OK)
   async create(@Body() productDto: CreateProductDTO, @Request() request) {
-    const product = productDto.toModel();
-    product.user = request.user;
+    const product = productDto.toModel(request.user);
     this.productRepository.save(product);
   }
 }

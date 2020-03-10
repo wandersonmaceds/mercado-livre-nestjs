@@ -12,6 +12,7 @@ import { Product } from '../product.entity';
 import { IsArrayInstancesOf } from '../validators/is-array-instances-of.constraint';
 import { CreateProductFeatureDTO } from './create-product-feature.dto';
 import { CreateProductImageDTO } from './create-product-image.dto';
+import { User } from 'src/user/user.entity';
 
 export class CreateProductDTO {
   @IsNotEmpty()
@@ -38,8 +39,9 @@ export class CreateProductDTO {
   @Type(() => CreateProductImageDTO)
   readonly images: CreateProductImageDTO[];
 
-  toModel() {
+  toModel(user: User) {
     const model = new Product(
+      user,
       this.name,
       this.price,
       this.quantity,

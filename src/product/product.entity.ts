@@ -21,22 +21,29 @@ import { User } from 'src/user/user.entity';
 
 @Entity()
 export class Product {
-  constructor(name, price, quantity, description) {
+  constructor(
+    user: User,
+    name: string,
+    price: number,
+    quantity: number,
+    description: string,
+  ) {
+    this.user = user;
     this.name = name;
     this.price = price;
     this.quantity = quantity;
     this.description = description;
   }
 
-  addFeatures(feature: ProductFeature | ProductFeature[]) {
+  addFeatures(features: ProductFeature[]) {
     if (!this.features) this.features = [];
 
-    this.features.push(...this.features.concat(feature));
+    this.features.push(...this.features.concat(features));
   }
 
-  addImages(image: ProductImage | ProductImage[]) {
+  addImages(images: ProductImage[]) {
     if (!this.images) this.images = [];
-    this.images.push(...this.images.concat(image));
+    this.images.push(...this.images.concat(images));
   }
 
   @PrimaryGeneratedColumn()
@@ -79,10 +86,7 @@ export class Product {
   @ArrayMinSize(1)
   images: ProductImage[];
 
-  @ManyToOne(
-    type => User,
-    u => u.products,
-  )
+  @ManyToOne(type => User)
   @JoinColumn({ name: 'user_id' })
   user: User;
 }
