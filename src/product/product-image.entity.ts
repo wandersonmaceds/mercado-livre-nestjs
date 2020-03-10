@@ -22,7 +22,7 @@ export class ProductImage {
     p => p.id,
   )
   @JoinColumn({ name: 'product_id' })
-  readonly product: number;
+  readonly product: Product;
 
   @Column()
   @IsNotEmpty()
