@@ -3,8 +3,10 @@ import {
   CreateDateColumn,
   Column,
   PrimaryGeneratedColumn,
+  OneToMany,
 } from 'typeorm';
 import * as bcrypt from 'bcrypt';
+import { Product } from 'src/product/product.entity';
 
 @Entity()
 export class User {
