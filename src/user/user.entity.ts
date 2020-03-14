@@ -1,12 +1,10 @@
-import {
-  Entity,
-  CreateDateColumn,
-  Column,
-  PrimaryGeneratedColumn,
-  OneToMany,
-} from 'typeorm';
 import * as bcrypt from 'bcrypt';
-import { Product } from 'src/product/product.entity';
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 
 @Entity()
 export class User {
