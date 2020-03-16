@@ -7,6 +7,7 @@ import { ProductController } from './product.controller';
 import { ProductRating } from './product-rating.entity';
 import { ProductQuestionController } from './constroller/product-question.controller';
 import { ProductQuestion } from './product-question.entity';
+import { MessageModule } from 'src/message/message.module';
 
 @Module({
   imports: [
@@ -17,6 +18,7 @@ import { ProductQuestion } from './product-question.entity';
       ProductRating,
       ProductQuestion,
     ]),
+    MessageModule,
   ],
   controllers: [ProductController, ProductQuestionController],
 })
