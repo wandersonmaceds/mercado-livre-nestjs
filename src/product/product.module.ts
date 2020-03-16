@@ -5,6 +5,8 @@ import { ProductFeature } from './product-feature.entity';
 import { ProductImage } from './product-image.entity';
 import { ProductController } from './product.controller';
 import { ProductRating } from './product-rating.entity';
+import { ProductQuestionController } from './constroller/product-question.controller';
+import { ProductQuestion } from './product-question.entity';
 
 @Module({
   imports: [
@@ -13,8 +15,9 @@ import { ProductRating } from './product-rating.entity';
       ProductFeature,
       ProductImage,
       ProductRating,
+      ProductQuestion,
     ]),
   ],
-  controllers: [ProductController],
+  controllers: [ProductController, ProductQuestionController],
 })
 export class ProductModule {}
