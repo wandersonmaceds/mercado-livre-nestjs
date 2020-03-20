@@ -36,6 +36,7 @@ export class ProductQuestionController {
     const product = await this.productRepository.findOne(productId);
     const question = createProductQuestionDto.toModel(product, request.user);
 
-    this.productQuestionRepository.save(question);
+    await this.productQuestionRepository.save(question);
+    question.notifyAskedQuestion();
   }
 }

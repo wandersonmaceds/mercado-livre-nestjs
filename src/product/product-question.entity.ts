@@ -1,4 +1,6 @@
 import { IsNotEmpty } from 'class-validator';
+import { Message } from 'src/message/message';
+import { MessageService } from 'src/message/message.service';
 import { User } from 'src/user/user.entity';
 import {
   Column,
@@ -7,11 +9,8 @@ import {
   JoinColumn,
   ManyToOne,
   PrimaryGeneratedColumn,
-  AfterInsert,
 } from 'typeorm';
 import { Product } from './product.entity';
-import { Message } from 'src/message/message';
-import { MessageService } from 'src/message/message.service';
 
 @Entity()
 export class ProductQuestion {
@@ -47,8 +46,7 @@ export class ProductQuestion {
   @JoinColumn({ name: 'user_id' })
   readonly user: User;
 
-  @AfterInsert()
-  private notifyAskedQuestion() {
+  notifyAskedQuestion() {
     const messageTitle = `Você tem uma nova pergunta sobre seus produtos!`;
     const messageBody = `Produto: ${this.product.name}\nPergunta: ${this.title}`;
 
