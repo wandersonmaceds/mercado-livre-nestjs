@@ -14,8 +14,6 @@ import { Product } from './product.entity';
 
 @Entity()
 export class ProductQuestion {
-  private readonly messageService = new MessageService();
-
   constructor(product: Product, user: User, title: string) {
     this.title = title;
     this.product = product;
@@ -46,17 +44,15 @@ export class ProductQuestion {
   @JoinColumn({ name: 'user_id' })
   readonly user: User;
 
-  notifyAskedQuestion() {
+  toNotification() {
     const messageTitle = `Você tem uma nova pergunta sobre seus produtos!`;
     const messageBody = `Produto: ${this.product.name}\nPergunta: ${this.title}`;
 
-    const message = new Message(
+    return new Message(
       this.user.login,
       this.product.user.login,
       messageTitle,
       messageBody,
     );
-
-    this.messageService.sendMessage(message);
   }
 }

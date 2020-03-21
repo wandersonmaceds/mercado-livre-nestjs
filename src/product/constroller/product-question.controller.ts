@@ -14,6 +14,7 @@ import { Repository } from 'typeorm';
 import { CreateProductQuestionDTO } from '../dto/question/create-product-questio.dto';
 import { ProductQuestion } from '../product-question.entity';
 import { Product } from '../product.entity';
+import { MessageService } from 'src/message/message.service';
 
 @Controller('product/:id/question')
 @UseGuards(AuthGuard('jwt'))
@@ -24,6 +25,8 @@ export class ProductQuestionController {
 
     @InjectRepository(ProductQuestion)
     private readonly productQuestionRepository: Repository<ProductQuestion>,
+
+    private readonly messageService: MessageService,
   ) {}
 
   @Post()
@@ -37,6 +40,6 @@ export class ProductQuestionController {
     const question = createProductQuestionDto.toModel(product, request.user);
 
     await this.productQuestionRepository.save(question);
-    question.notifyAskedQuestion();
+    await this.messageService.sendMessage(question.toNotification());
   }
 }
