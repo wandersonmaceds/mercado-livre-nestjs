@@ -86,7 +86,7 @@ export class Product {
   @ArrayMinSize(1)
   images: ProductImage[];
 
-  @ManyToOne(type => User)
+  @ManyToOne(type => User, { eager: true })
   @JoinColumn({ name: 'user_id' })
   user: User;
 }

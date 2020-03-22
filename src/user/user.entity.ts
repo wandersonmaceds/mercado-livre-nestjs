@@ -19,7 +19,7 @@ export class User {
   }
 
   @PrimaryGeneratedColumn()
-  private id: number;
+  readonly id: number;
 
   @CreateDateColumn()
   private createdAt: Date;

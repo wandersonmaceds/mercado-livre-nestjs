@@ -11,6 +11,7 @@ import { Product } from './product/product.entity';
 import { ProductModule } from './product/product.module';
 import { User } from './user/user.entity';
 import { UserModule } from './user/user.module';
+import { ProductQuestion } from './product/product-question.entity';
 
 @Module({
   imports: [
@@ -25,6 +26,7 @@ import { UserModule } from './user/user.module';
         ProductFeature,
         ProductImage,
         ProductRating,
+        ProductQuestion,
       ],
       synchronize: true,
       logging: true,
