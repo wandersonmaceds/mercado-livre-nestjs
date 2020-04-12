@@ -1,4 +1,4 @@
-export class Message {
+export class Message implements Notificable {
   /**
    *
    * @param from a string that represents the user's email sender.
@@ -13,7 +13,7 @@ export class Message {
     readonly body: string,
   ) {}
 
-  toString() {
+  toNotification() {
     return `\nfrom: ${this.from}\nto: ${this.to}\ntitle: ${this.title}\nbody: ${this.body}`;
   }
 }

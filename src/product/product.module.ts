@@ -8,6 +8,7 @@ import { ProductRating } from './product-rating.entity';
 import { ProductQuestionController } from './constroller/product-question.controller';
 import { ProductQuestion } from './product-question.entity';
 import { MessageModule } from 'src/message/message.module';
+import { ProductNotification } from './product-notification.entity';
 
 @Module({
   imports: [
@@ -17,6 +18,7 @@ import { MessageModule } from 'src/message/message.module';
       ProductImage,
       ProductRating,
       ProductQuestion,
+      ProductNotification,
     ]),
     MessageModule,
   ],

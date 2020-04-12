@@ -11,6 +11,7 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { Product } from './product.entity';
+import { ProductNotification } from './product-notification.entity';
 
 @Entity()
 export class ProductQuestion {
@@ -44,15 +45,16 @@ export class ProductQuestion {
   @JoinColumn({ name: 'user_id' })
   readonly user: User;
 
-  toNotification() {
+  toNotification(): ProductNotification {
     const messageTitle = `Você tem uma nova pergunta sobre seus produtos!`;
     const messageBody = `Produto: ${this.product.name}\nPergunta: ${this.title}`;
 
-    return new Message(
-      this.user.login,
-      this.product.user.login,
+    return new ProductNotification(
       messageTitle,
       messageBody,
+      this.product,
+      this.product.user,
+      this.user,
     );
   }
 }

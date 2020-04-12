@@ -15,6 +15,7 @@ import { CreateProductQuestionDTO } from '../dto/question/create-product-questio
 import { ProductQuestion } from '../product-question.entity';
 import { Product } from '../product.entity';
 import { MessageService } from 'src/message/message.service';
+import { ProductNotification } from '../product-notification.entity';
 
 @Controller('product/:id/question')
 @UseGuards(AuthGuard('jwt'))
@@ -25,6 +26,11 @@ export class ProductQuestionController {
 
     @InjectRepository(ProductQuestion)
     private readonly productQuestionRepository: Repository<ProductQuestion>,
+
+    @InjectRepository(ProductNotification)
+    private readonly productNotificationRepository: Repository<
+      ProductNotification
+    >,
 
     private readonly messageService: MessageService,
   ) {}
@@ -38,8 +44,10 @@ export class ProductQuestionController {
   ) {
     const product = await this.productRepository.findOne(productId);
     const question = createProductQuestionDto.toModel(product, request.user);
+    const notification = question.toNotification();
 
     await this.productQuestionRepository.save(question);
-    await this.messageService.sendMessage(question.toNotification());
+    await this.productNotificationRepository.save(notification);
+    await this.messageService.sendMessage(notification);
   }
 }

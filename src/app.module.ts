@@ -12,6 +12,7 @@ import { ProductModule } from './product/product.module';
 import { User } from './user/user.entity';
 import { UserModule } from './user/user.module';
 import { ProductQuestion } from './product/product-question.entity';
+import { ProductNotification } from './product/product-notification.entity';
 
 @Module({
   imports: [
@@ -27,6 +28,7 @@ import { ProductQuestion } from './product/product-question.entity';
         ProductImage,
         ProductRating,
         ProductQuestion,
+        ProductNotification,
       ],
       synchronize: true,
       logging: true,
