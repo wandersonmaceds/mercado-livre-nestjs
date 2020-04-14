@@ -7,6 +7,7 @@ import {
   UseGuards,
   Request,
   Param,
+  Get,
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -45,5 +46,15 @@ export class ProductController {
     const productRating = productRatingDto.toModel(product, request.user);
 
     this.productRatingRepository.save(productRating);
+  }
+
+  @Get(':id')
+  async show(@Param(':id') id: number) {
+    const product = await this.productRepository.find({
+      where: { id },
+      relations: ['question', 'rating', 'feature', 'image'],
+    });
+
+    return product;
   }
 }

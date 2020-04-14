@@ -5,7 +5,7 @@ import { Message } from './message';
 export class MessageService {
   private readonly logger: Logger = new Logger();
 
-  async sendMessage(message: Message) {
-    this.logger.log(message.toString());
+  async sendMessage(notification: Notificable) {
+    this.logger.log(notification.toNotification());
   }
 }
