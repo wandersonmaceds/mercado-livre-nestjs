@@ -9,6 +9,7 @@ import { ProductQuestionController } from './constroller/product-question.contro
 import { ProductQuestion } from './product-question.entity';
 import { MessageModule } from 'src/message/message.module';
 import { ProductNotification } from './product-notification.entity';
+import { ProductDetailsController } from './constroller/product-details.controller';
 
 @Module({
   imports: [
@@ -22,6 +23,10 @@ import { ProductNotification } from './product-notification.entity';
     ]),
     MessageModule,
   ],
-  controllers: [ProductController, ProductQuestionController],
+  controllers: [
+    ProductController,
+    ProductQuestionController,
+    ProductDetailsController,
+  ],
 })
 export class ProductModule {}

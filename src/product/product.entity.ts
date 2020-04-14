@@ -6,18 +6,19 @@ import {
   MaxLength,
   Min,
 } from 'class-validator';
+import { User } from 'src/user/user.entity';
 import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinColumn,
+  ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
-  ManyToOne,
-  JoinColumn,
 } from 'typeorm';
+import { ViewProductDTO } from './dto/view-product.dto';
 import { ProductFeature } from './product-feature.entity';
 import { ProductImage } from './product-image.entity';
-import { User } from 'src/user/user.entity';
 
 @Entity()
 export class Product {
@@ -89,4 +90,18 @@ export class Product {
   @ManyToOne(type => User, { eager: true })
   @JoinColumn({ name: 'user_id' })
   user: User;
+
+  toViewDTO(): ViewProductDTO {
+    return new ViewProductDTO(
+      this.id,
+      this.createdAt,
+      this.name,
+      this.price,
+      this.quantity,
+      this.description,
+      this.features.map(f => f.toViewDTO()),
+      this.images.map(i => i.toViewDTO()),
+      this.user.toViewDTO(),
+    );
+  }
 }

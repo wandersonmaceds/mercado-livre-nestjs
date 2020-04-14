@@ -5,6 +5,7 @@ import {
   Entity,
   PrimaryGeneratedColumn,
 } from 'typeorm';
+import { ViewUserDTO } from './dto/view-user.dto';
 
 @Entity()
 export class User {
@@ -43,5 +44,9 @@ export class User {
    */
   isPasswordValid(password: string) {
     return bcrypt.compareSync(password, this._password);
+  }
+
+  toViewDTO(): ViewUserDTO {
+    return new ViewUserDTO(this.login);
   }
 }

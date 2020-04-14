@@ -7,6 +7,7 @@ import {
 } from 'typeorm';
 import { IsNotEmpty } from 'class-validator';
 import { Product } from './product.entity';
+import { ViewProductImageDTO } from './dto/view-product-image.dto';
 
 @Entity()
 export class ProductImage {
@@ -27,4 +28,8 @@ export class ProductImage {
   @Column()
   @IsNotEmpty()
   readonly path: string;
+
+  toViewDTO() {
+    return new ViewProductImageDTO(this.path);
+  }
 }

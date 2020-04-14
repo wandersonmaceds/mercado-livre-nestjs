@@ -7,6 +7,7 @@ import {
 } from 'typeorm';
 import { IsNotEmpty } from 'class-validator';
 import { Product } from './product.entity';
+import { ViewProductFeatureDTO } from './dto/view-product-feature.dto';
 
 @Entity({ name: 'product_feature' })
 export class ProductFeature {
@@ -28,4 +29,8 @@ export class ProductFeature {
   @Column()
   @IsNotEmpty()
   readonly description: string;
+
+  toViewDTO(): ViewProductFeatureDTO {
+    return new ViewProductFeatureDTO(this.name, this.description);
+  }
 }

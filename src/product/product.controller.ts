@@ -3,19 +3,18 @@ import {
   Controller,
   HttpCode,
   HttpStatus,
-  Post,
-  UseGuards,
-  Request,
   Param,
-  Get,
+  Post,
+  Request,
+  UseGuards,
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { CreateProductDTO } from './dto/create-product.dto';
-import { Product } from './product.entity';
 import { CreateProductRatingDTO } from './dto/create-product-rating.dto';
+import { CreateProductDTO } from './dto/create-product.dto';
 import { ProductRating } from './product-rating.entity';
+import { Product } from './product.entity';
 
 @UseGuards(AuthGuard('jwt'))
 @Controller('product')
@@ -46,15 +45,5 @@ export class ProductController {
     const productRating = productRatingDto.toModel(product, request.user);
 
     this.productRatingRepository.save(productRating);
-  }
-
-  @Get(':id')
-  async show(@Param(':id') id: number) {
-    const product = await this.productRepository.find({
-      where: { id },
-      relations: ['question', 'rating', 'feature', 'image'],
-    });
-
-    return product;
   }
 }
